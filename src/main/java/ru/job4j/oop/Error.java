@@ -1,15 +1,15 @@
 package ru.job4j.oop;
 
 public class Error {
-    boolean active;
-    int status;
-    String massage;
+    private boolean active;
+    private int status;
+    private String massage;
 
-    Error() {
+    public Error() {
 
     }
 
-    Error(boolean active, int status, String massage) {
+    public Error(boolean active, int status, String massage) {
         this.active = active;
         this.status = status;
         this.massage = massage;

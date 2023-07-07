@@ -10,7 +10,5 @@ public class College {
         ivan.setAdmission(new Date());
         System.out.println(ivan.getFullName() + System.lineSeparator() + ivan.getGroup()
                 + System.lineSeparator() + ivan.getAdmission());
-
-
     }
 }

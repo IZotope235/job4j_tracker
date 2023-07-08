@@ -11,6 +11,7 @@ public class Item {
     }
 
     public Item(String name) {
+        this.id = id;
         this.name = name;
     }
 

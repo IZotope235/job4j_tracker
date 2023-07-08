@@ -8,6 +8,7 @@ public class Item {
     private LocalDateTime created = LocalDateTime.now();
 
     public Item(String name) {
+        this.id = id;
         this.name = name;
     }
 

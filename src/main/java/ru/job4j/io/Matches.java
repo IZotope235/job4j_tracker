@@ -12,15 +12,15 @@ public class Matches {
             String player = turn ? "Первый игрок" : "Второй игрок";
             System.out.println(player + " введите число от 1 до 3:");
             int playersTurn = Integer.parseInt(input.nextLine());
-            while (playersTurn > 3 || playersTurn <= 0 || playersTurn > count) {
+            if (playersTurn > 3 || playersTurn <= 0 || playersTurn > count) {
                 System.out.println("Ход должен быть от 1 до 3 спичек, но не больше количества оставшихся");
                 System.out.println("Осталось: " + count + " спичек");
                 System.out.println("Попробуйте еще раз");
-                playersTurn = Integer.parseInt(input.nextLine());
+            } else {
+                turn = !turn;
+                count -= playersTurn;
+                System.out.println("Осталось: " + count + " спичек");
             }
-            turn = !turn;
-            count -= playersTurn;
-            System.out.println("Осталось: " + count + " спичек");
         }
         String winner = !turn ? "Первый игрок" : "Второй игрок";
         System.out.println("Победил: " + winner);

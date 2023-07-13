@@ -12,7 +12,7 @@ public class Matches {
             String player = turn ? "Первый игрок" : "Второй игрок";
             System.out.println(player + " введите число от 1 до 3:");
             int playersTurn = Integer.parseInt(input.nextLine());
-            if (playersTurn > 3 || playersTurn <= 0 || playersTurn > count) {
+            if (playersTurn > Math.min(3, count) || playersTurn <= 0) {
                 System.out.println("Ход должен быть от 1 до 3 спичек, но не больше количества оставшихся");
                 System.out.println("Осталось: " + count + " спичек");
                 System.out.println("Попробуйте еще раз");

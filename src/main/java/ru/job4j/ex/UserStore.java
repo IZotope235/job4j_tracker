@@ -4,14 +4,14 @@ public class UserStore {
     static final int MIN_LENGTH_USER_NAME = 3;
 
     public static User findUser(User[] users, String login) throws UserNotFoundException {
-        User rsl = new User("invalid", false);
+        User rsl = null;
         for (User user: users) {
             if (user.getUsername().equals(login)) {
                 rsl = user;
                 break;
             }
         }
-        if (rsl.getUsername().equals("invalid")) {
+        if (rsl == null) {
             throw new UserNotFoundException("User not found");
         }
         return rsl;

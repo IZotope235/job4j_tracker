@@ -28,10 +28,14 @@ class ValidateInputTest {
     @Test
     public void whenRepeatedValidInput() {
         Output out = new StubOutput();
-        Input in = new StubInput(new String[] {"2", "1", "1"});
+        Input in = new StubInput(new String[] {"2", "1", "3"});
         ValidateInput input = new ValidateInput(out, in);
         int selected = input.askInt("Enter menu:");
         assertThat(selected).isEqualTo(2);
+        selected = input.askInt("Enter menu:");
+        assertThat(selected).isEqualTo(1);
+        selected = input.askInt("Enter menu");
+        assertThat(selected).isEqualTo(3);
     }
 
     @Test

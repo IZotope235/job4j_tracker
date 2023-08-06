@@ -29,12 +29,12 @@ public class Tracker {
         return rsl;
     }
 
-    public ArrayList<Item> findAll() {
+    public List<Item> findAll() {
         return new ArrayList<>(items);
     }
 
-    public ArrayList<Item> findByName(String key) {
-        ArrayList<Item> arrayListWithEqualNames = new ArrayList<>();
+    public List<Item> findByName(String key) {
+        List<Item> arrayListWithEqualNames = new ArrayList<>();
         for (Item item: items) {
             if (item.getName().equals(key)) {
                 arrayListWithEqualNames.add(item);

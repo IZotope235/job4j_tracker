@@ -3,6 +3,7 @@ package ru.job4j.search;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -13,7 +14,7 @@ public class PhoneDictionaryTest {
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("Petr");
+        List<Person> persons = phones.find("Petr");
         assertThat(persons.get(0).getSurname()).isEqualTo("Arsentev");
     }
 
@@ -23,7 +24,7 @@ public class PhoneDictionaryTest {
         phones.add(
                 new Person("Petr", "Arsentev", "534872", "Bryansk")
         );
-        ArrayList<Person> persons = phones.find("Marat");
+        List<Person> persons = phones.find("Marat");
         assertThat(persons).isEmpty();
     }
 }

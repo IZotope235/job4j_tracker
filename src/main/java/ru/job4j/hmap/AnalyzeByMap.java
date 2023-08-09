@@ -29,9 +29,8 @@ public class AnalyzeByMap {
         Map<String, Integer> averageBySubjectMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                averageBySubjectMap.putIfAbsent(subject.name(), 0);
-                averageBySubjectMap.replace(subject.name(),
-                        averageBySubjectMap.get(subject.name()) + subject.score());
+                averageBySubjectMap.put(subject.name(),
+                        averageBySubjectMap.getOrDefault(subject.name(), 0) + subject.score());
             }
         }
         for (Map.Entry<String, Integer> entry : averageBySubjectMap.entrySet()) {
@@ -59,8 +58,8 @@ public class AnalyzeByMap {
         Map<String, Integer> sumScoreMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                sumScoreMap.putIfAbsent(subject.name(), 0);
-                sumScoreMap.replace(subject.name(), sumScoreMap.get(subject.name()) + subject.score());
+                sumScoreMap.put(subject.name(),
+                        sumScoreMap.getOrDefault(subject.name(), 0) + subject.score());
             }
 
         }

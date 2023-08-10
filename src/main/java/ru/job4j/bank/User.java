@@ -1,9 +1,19 @@
 package ru.job4j.bank;
 
 import java.util.Objects;
-
+/**
+ * Модель данных User содержит индитификационнуе данные клиента банка.
+ * @author Marat Mikhaylov
+ * @version 1.0
+ */
 public class User {
+    /**
+     * Поле passport содержит номер паспорта клиента.
+     */
     private String passport;
+    /**
+     * Поле username содержит имя клиента.
+     */
     private String username;
 
     public User(String passport, String username) {

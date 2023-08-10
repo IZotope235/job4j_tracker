@@ -1,9 +1,19 @@
 package ru.job4j.bank;
 
 import java.util.Objects;
-
+/**
+ * Класс Account это модель данных счета клиента.
+ * @author Marat Mikhaylov
+ * @version 1.0
+ */
 public class Account {
+    /**
+     * Поле requisite содержит идентификационный номер счета.
+     */
     private String requisite;
+    /**
+     * Поле balance содержит остаток средств на данном счете.
+     */
     private double balance;
 
     public Account(String requisite, double balance) {

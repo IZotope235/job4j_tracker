@@ -9,12 +9,10 @@ public class Departments {
         for (String dep : deps) {
             StringBuilder buffer = new StringBuilder();
             String[] depSplitArray  = dep.split("/");
-            for (int i = 0; i < depSplitArray.length; i++) {
-                if (i > 0) {
-                    buffer.append("/");
-                }
-                buffer.append(depSplitArray[i]);
+            for (String string : depSplitArray) {
+                buffer.append(string);
                 output.add(buffer.toString());
+                buffer.append("/");
             }
         }
         return new ArrayList<>(output);

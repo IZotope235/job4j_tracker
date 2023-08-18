@@ -1,6 +1,5 @@
 package ru.job4j.search;
 import java.util.ArrayList;
-import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class PhoneDictionary {

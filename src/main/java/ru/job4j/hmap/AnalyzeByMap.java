@@ -29,8 +29,7 @@ public class AnalyzeByMap {
         Map<String, Integer> averageBySubjectMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                averageBySubjectMap.put(subject.name(),
-                        averageBySubjectMap.getOrDefault(subject.name(), 0) + subject.score());
+                averageBySubjectMap.merge(subject.name(), subject.score(), Integer::sum);
             }
         }
         for (Map.Entry<String, Integer> entry : averageBySubjectMap.entrySet()) {
@@ -58,10 +57,8 @@ public class AnalyzeByMap {
         Map<String, Integer> sumScoreMap = new LinkedHashMap<>();
         for (Pupil pupil : pupils) {
             for (Subject subject : pupil.subjects()) {
-                sumScoreMap.put(subject.name(),
-                        sumScoreMap.getOrDefault(subject.name(), 0) + subject.score());
+                sumScoreMap.merge(subject.name(), subject.score(), Integer::sum);
             }
-
         }
         for (Map.Entry<String, Integer> entry : sumScoreMap.entrySet()) {
             rsl.add(new Label(entry.getKey(), entry.getValue()));

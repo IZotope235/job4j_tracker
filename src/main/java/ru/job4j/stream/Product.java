@@ -39,7 +39,10 @@ public class Product {
         if (!(o instanceof Product product)) {
             return false;
         }
-        return Float.compare(price, product.price) == 0 && standard == product.standard && actual == product.actual && Objects.equals(name, product.name);
+        return Float.compare(price, product.price) == 0
+                && standard == product.standard
+                && actual == product.actual
+                && Objects.equals(name, product.name);
     }
 
     @Override

@@ -12,7 +12,7 @@ public class StartUITest {
     public void whenCreateItem() {
         Output out = new ConsoleOutput();
         Input in = new StubInput(new String[] {"0", "Item name", "1"});
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>(Arrays.asList(new CreateAction(out), new ExitAction(out)));
         new StartUI(out).init(in, tracker, actions);
         assertThat(tracker.findAll().get(0).getName()).isEqualTo("Item name");
@@ -21,7 +21,7 @@ public class StartUITest {
     @Test
     public void whenReplaceAction() {
         Output out = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("Replaced item"));
         String replaceName = "New item name";
         Input in = new StubInput(new String[] {"0", String.valueOf(item.getId()), replaceName, "1"});
@@ -33,7 +33,7 @@ public class StartUITest {
     @Test
     public void whenDeleteAction() {
         Output out = new ConsoleOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item item = tracker.add(new Item("Deleted item"));
         Input in = new StubInput(new String[] {"0", String.valueOf(item.getId()), "1"});
         List<UserAction> actions = new ArrayList<>(Arrays.asList(new DeleteAction(out), new ExitAction(out)));
@@ -45,7 +45,7 @@ public class StartUITest {
     public void whenExit() {
         Output out = new StubOutput();
         Input in = new StubInput(new String[]{"0"});
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>(List.of(new ExitAction(out)));
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
@@ -58,7 +58,7 @@ public class StartUITest {
     @Test
     public void whenReplaceItemTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         String replaceName = "New Test Name";
         Input in = new StubInput(new String[] {"0", String.valueOf(one.getId()), replaceName, "1"});
@@ -81,10 +81,10 @@ public class StartUITest {
     @Test
     public void whenShowAllActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(new String[] {"0", "1"});
-        List<UserAction> actions = new ArrayList<>(Arrays.asList(new ShowAllAction(out), new ExitAction(out)));
+        List<UserAction> actions = new ArrayList<>(Arrays.asList(new FindAllAction(out), new ExitAction(out)));
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();
         assertThat(out.toString()).isEqualTo(
@@ -103,7 +103,7 @@ public class StartUITest {
     @Test
     public void whenFindByNameActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         String findName = "test1";
         Input in = new StubInput(new String[] {"0", findName, "1"});
@@ -126,7 +126,7 @@ public class StartUITest {
     @Test
     public void whenFindByIdActionTestOutputIsSuccessfully() {
         Output out = new StubOutput();
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         Item one = tracker.add(new Item("test1"));
         Input in = new StubInput(new String[] {"0", String.valueOf(one.getId()), "1"});
         List<UserAction> actions = new ArrayList<>(Arrays.asList(new FindByIdAction(out), new ExitAction(out)));
@@ -149,7 +149,7 @@ public class StartUITest {
     public void whenInvalidExit() {
         Output out = new StubOutput();
         Input in = new StubInput(new String[] {"1", "0"});
-        Tracker tracker = new Tracker();
+        MemTracker tracker = new MemTracker();
         List<UserAction> actions = new ArrayList<>(List.of(new ExitAction(out)));
         new StartUI(out).init(in, tracker, actions);
         String ln = System.lineSeparator();

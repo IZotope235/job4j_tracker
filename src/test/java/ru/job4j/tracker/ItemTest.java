@@ -30,18 +30,18 @@ class ItemTest {
 
     @Test
     public void whenItemsSortByReverseOrder()     {
-        Item itemOne = new Item(3, "Carl");
-        Item itemTwo = new Item(1, "Bob");
-        Item itemThree = new Item(2, "Ann");
+        Item itemOne = new Item(1, "Bob");
+        Item itemTwo = new Item(2, "Ann");
+        Item itemThree = new Item(3, "Carl");
         List<Item> items = new ArrayList<>(List.of(
-                itemThree,
                 itemTwo,
-                itemOne
+                itemOne,
+                itemThree
         ));
         List<Item> expected = new ArrayList<>(List.of(
+                itemThree,
                 itemOne,
-                itemTwo,
-                itemThree
+                itemTwo
         ));
         items.sort(new ItemDescByName());
         assertThat(items).isEqualTo(expected);

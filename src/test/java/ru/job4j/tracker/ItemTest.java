@@ -3,7 +3,6 @@ package ru.job4j.tracker;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -12,33 +11,39 @@ class ItemTest {
 
     @Test
     public void whenItemsSortByNaturalOrder()     {
+        Item itemOne = new Item(1, "Bob");
+        Item itemTwo = new Item(2, "Ann");
+        Item itemThree = new Item(3, "Carl");
         List<Item> items = new ArrayList<>(List.of(
-                new Item(3, "Carl"),
-                new Item(1, "Bob"),
-                new Item(2, "Ann")
+                itemThree,
+                itemTwo,
+                itemOne
         ));
         List<Item> expected = new ArrayList<>(List.of(
-                new Item(2, "Ann"),
-                new Item(1, "Bob"),
-                new Item(3, "Carl")
+                itemTwo,
+                itemOne,
+                itemThree
         ));
-        Collections.sort(items, new ItemAscByName());
+        items.sort(new ItemAscByName());
         assertThat(items).isEqualTo(expected);
     }
 
     @Test
     public void whenItemsSortByReverseOrder()     {
+        Item itemOne = new Item(3, "Carl");
+        Item itemTwo = new Item(1, "Bob");
+        Item itemThree = new Item(2, "Ann");
         List<Item> items = new ArrayList<>(List.of(
-                new Item(3, "Ann"),
-                new Item(2, "Bob"),
-                new Item(1, "Carl")
+                itemThree,
+                itemTwo,
+                itemOne
         ));
         List<Item> expected = new ArrayList<>(List.of(
-                new Item(1, "Carl"),
-                new Item(2, "Bob"),
-                new Item(3, "Ann")
+                itemOne,
+                itemTwo,
+                itemThree
         ));
-        Collections.sort(items, new ItemDescByName());
+        items.sort(new ItemDescByName());
         assertThat(items).isEqualTo(expected);
     }
 }

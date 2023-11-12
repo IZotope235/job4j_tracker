@@ -7,6 +7,12 @@ import java.util.List;
 import java.util.Properties;
 
 public class SqlTracker implements Store {
+    private static final String INSERT_STATEMENT = "INSERT INTO items (name, created) VALUES (?, ?);";
+    private static final String DELETE_STATEMENT = "DELETE FROM items WHERE id = ?;";
+    private static final String UPDATE_STATEMENT = "UPDATE items SET (name, created) = (?, ?) WHERE id = ?;";
+    private static final String FINDALL_STATEMENT = "SELECT * FROM items;";
+    private static final String FINDBYNAME_STATEMENT = "SELECT * FROM items WHERE name = ?;";
+    private static final String FINDBYID_STATEMENT = "SELECT * FROM items WHERE id = ?;";
 
     private Connection cn;
 
@@ -43,24 +49,27 @@ public class SqlTracker implements Store {
 
     @Override
     public Item add(Item item) {
-        List<Item> itemsList = new ArrayList<>();
-        try (PreparedStatement ps = cn.prepareStatement(
-                "INSERT INTO items (name, created) values (?, ?) RETURNING *;")) {
+        try (PreparedStatement ps = cn.prepareStatement(INSERT_STATEMENT,
+                Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, item.getName());
             ps.setTimestamp(2, Timestamp.valueOf(item.getDate()));
-            itemsList = getItemsList(ps.executeQuery());
+            ps.execute();
+            try (ResultSet key = ps.getGeneratedKeys()) {
+                if (key.next()) {
+                    item.setId(key.getInt(1));
+                }
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return itemsList.isEmpty() ? null : itemsList.get(0);
+        return item;
     }
 
     @Override
     public boolean replace(int id, Item item) {
         boolean rsl = findById(id) != null;
         if (rsl) {
-            try (PreparedStatement ps = cn.prepareStatement(
-                    "UPDATE items SET (name, created) = (?, ?) WHERE id = ?;")) {
+            try (PreparedStatement ps = cn.prepareStatement(UPDATE_STATEMENT)) {
                 ps.setString(1, item.getName());
                 ps.setTimestamp(2, Timestamp.valueOf(item.getDate()));
                 ps.setInt(3, id);
@@ -74,8 +83,7 @@ public class SqlTracker implements Store {
 
     @Override
     public void delete(int id) {
-        try (PreparedStatement ps = cn.prepareStatement(
-                "DELETE FROM items WHERE id = ?;")) {
+        try (PreparedStatement ps = cn.prepareStatement(DELETE_STATEMENT)) {
             ps.setInt(1, id);
             ps.execute();
         } catch (Exception e) {
@@ -86,8 +94,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findAll() {
         List<Item> itemsList = new ArrayList<>();
-        try (PreparedStatement ps = cn.prepareStatement(
-                "SELECT * FROM items;")) {
+        try (PreparedStatement ps = cn.prepareStatement(FINDALL_STATEMENT)) {
             itemsList = getItemsList(ps.executeQuery());
         } catch (Exception e) {
             e.printStackTrace();
@@ -98,8 +105,7 @@ public class SqlTracker implements Store {
     @Override
     public List<Item> findByName(String key) {
         List<Item> itemsList = new ArrayList<>();
-        try (PreparedStatement ps = cn.prepareStatement(
-                "SELECT * FROM items WHERE name = ?;")) {
+        try (PreparedStatement ps = cn.prepareStatement(FINDBYNAME_STATEMENT)) {
             ps.setString(1, key);
             itemsList = getItemsList(ps.executeQuery());
         } catch (Exception e) {
@@ -111,8 +117,7 @@ public class SqlTracker implements Store {
     @Override
     public Item findById(int id) {
         List<Item> itemsList = new ArrayList<>();
-        try (PreparedStatement ps = cn.prepareStatement(
-                "SELECT * FROM items WHERE id = ?;")) {
+        try (PreparedStatement ps = cn.prepareStatement(FINDBYID_STATEMENT)) {
             ps.setInt(1, id);
             itemsList = getItemsList(ps.executeQuery());
         } catch (Exception e) {

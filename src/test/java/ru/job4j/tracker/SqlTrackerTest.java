@@ -77,6 +77,20 @@ public class SqlTrackerTest {
     }
 
     @Test
+    public void whenDeleteOneThenOtherItemsNotDelete() {
+        SqlTracker tracker = new SqlTracker(connection);
+        Item itemOne = new Item("itemOne");
+        Item itemTwo = new Item("itemTwo");
+        Item itemThree = new Item("itemThree");
+        tracker.add(itemOne);
+        tracker.add(itemTwo);
+        tracker.add(itemThree);
+        List<Item> expected = List.of(itemOne, itemThree);
+        tracker.delete(itemTwo.getId());
+        assertThat(tracker.findAll()).isEqualTo(expected);
+    }
+
+    @Test
     public void whenFindAll() {
         SqlTracker tracker = new SqlTracker(connection);
         Item itemOne = new Item("itemOne");
